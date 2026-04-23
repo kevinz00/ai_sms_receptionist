@@ -1,0 +1,26 @@
+1. Input arrives (customer_phone, business_phone, message)
+
+2. business = resolve_business(business_phone)
+
+3. customer = get_or_create_customer(business_id, customer_phone)
+
+4. conversation = get_or_create_conversation(business_id, customer_phone)
+
+5. append_message(convo_id, "user", message)
+
+6. history = get_recent_messages(convo_id)
+7. state = conversation["state"]
+
+8. llm_output = call_llm(history, state)
+
+   returns:
+   {
+     "reply": "...",
+     "state_updates": {...}
+   }
+
+9. new_state = merge_and_update_state(...)
+
+10. append_message(convo_id, "assistant", reply)
+
+11. send_sms(customer_phone, reply)
